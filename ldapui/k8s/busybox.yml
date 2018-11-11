@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  namespace: ldapui
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.28
+    command:
+    - sleep
+    - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+
+#kubectl -n ldapui exec -ti busybox -- nslookup ldapui-default.ldapui.svc.cluster.local
+#kubectl -n ldapui exec -ti busybox -- nc ldapui-default.ldapui.svc.cluster.local 8080
