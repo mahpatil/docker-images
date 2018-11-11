@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-server
+  namespace: {{ .Release.Namespace | quote }}
+data:
+  ldap.serverurl: {{ .Values.ldap.serverurl }}
+  ldap.basedn: {{ .Values.ldap.basedn }}
+  ldap.logindn: {{ .Values.ldap.logindn }}
+  ldap.adminpwd: {{ .Values.ldap.adminpwd }}

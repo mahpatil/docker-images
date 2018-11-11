@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "app.name" . }}
+  labels: {{ include "app.labels" . | indent 4 }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+spec:
+  rules:
+  {{- if .Values.ingress.hosts }}
+    {{- $service := printf "%s-%s" .Chart.Name .Values.id }}
+    {{- $port := .Values.port.http }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: "{{ $service }}"
+            servicePort: {{ $port }}
+    {{- end }}
+  {{- end }}
+
